@@ -7,9 +7,10 @@ import { Todo } from '../App'
 
 const Todos = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [input, setInput] = useState('');
 
   const nextId = useRef(1);
-
+  
   //Todo 항목 추가 이벤트 처리 함수
   const onInsert = useCallback((text:string)=> {
     const todo ={
@@ -17,22 +18,15 @@ const Todos = () => {
       text,
       done:false
     };
-    // console.log(todo.id)
 
-    // setTodos(todos.concat(todo))를 함수형으로 변환
     setTodos((todos)=>todos.concat(todo))
 
     nextId.current += 1;
   },[])
-
+  
   //Todo 항목 삭제 이벤트 처리 함수
   const onRemove = useCallback((id:number)=>{
     setTodos((todos)=>todos.filter((todo)=>todo.id !== id));
-  },[])
-
-  //Todo 항목 모두 삭제 이벤트 처리 함수
-  const onClearAll = useCallback(() =>{
-    setTodos(()=>[]);
   },[])
 
   //완료 체크 이벤트 처리 함수
@@ -42,11 +36,30 @@ const Todos = () => {
     ))
   },[])
 
+    //Todo 항목 모두 삭제 이벤트 처리 함수
+    const onClearAll = useCallback(() =>{
+      setTodos(()=>[]);
+    },[])
+
+  //텍스트 입력 요소 변경 이벤트 처리
+  const onChange = useCallback((e)=>{
+    setInput(e.target.value);
+  },[])
+
+  //submit 이벤트 처리하는 onsubmit 함수
+  const onSubmit = useCallback((e)=>{
+    e.preventDefault();
+
+    onInsert(input);
+    setInput('')
+    
+  },[onInsert, input])
+
   return (
     
     <div>
         <TodoHeader/>
-        <TodoInput onInsert={onInsert}/>
+        <TodoInput input={input} onChange={onChange} onSubmit={onSubmit}/>
         <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle}/>
         <TodoFooter onClearAll={onClearAll}/>
     </div>
