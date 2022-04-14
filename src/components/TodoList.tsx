@@ -1,23 +1,23 @@
 import styles from '../Todo.module.css'
 import TodoItem from './TodoItem'
-import { Todo } from '../App'
+import {TodoConsumer} from '../contexts/todo'
 
-interface Props {
-  readonly todos: Todo[];
-  //함수 타입 추가
-  readonly onRemove:(id:number)=>void;
-  readonly onToggle:(id:number)=>void;
-}
-
-
-export const TodoList = ({todos, onRemove, onToggle}:Props) => {
-  // const [todos] = useState(['todoItem1','todoItem2','todoItem3'])
-
+export const TodoList = () => {
   return (
-    <div className={styles.item}>
-      {todos.map((todo)=>
-        <TodoItem todo={todo} key={todo.id} onRemove={onRemove} onToggle={onToggle}/>
-      )}
-    </div>
+    <TodoConsumer>
+      {(value) => (
+        <div className={styles.list}>
+          {value.state.todos.map((todo)=>(
+            <TodoItem  
+            todo={todo} 
+            key={todo.id}
+            onRemove={value.actions.onRemove}
+            onToggle={value.actions.onToggle}/>
+          ))}
+        </div>
+      )
+
+      }
+    </TodoConsumer>
   )
 }
