@@ -1,4 +1,5 @@
-import Todos from './components/Todos';
+// import Todos from './components/Todos';
+import TodosContainer from './containers/TodosContainer';
 
 export interface Todo{
   id: number;
@@ -7,9 +8,7 @@ export interface Todo{
 }
 function App() {
   return (
-    <div className="App">
-      <Todos></Todos>
-    </div>
+    <TodosContainer/>
   );
 
 }
