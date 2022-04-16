@@ -2,7 +2,7 @@ import React,{createContext, useState, useCallback, useRef} from "react";
 import { Todo } from "../App";
 
 interface TodoState {
-    readonly todos: Todo[];
+    readonly todos: Todo[]; 
     readonly input:string;
 }
 

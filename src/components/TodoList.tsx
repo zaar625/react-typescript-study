@@ -5,14 +5,14 @@ import {TodoConsumer} from '../contexts/todo'
 export const TodoList = () => {
   return (
     <TodoConsumer>
-      {(value) => (
+      {({state, actions}) => (
         <div className={styles.list}>
-          {value.state.todos.map((todo)=>(
+          {state.todos.map((todo)=>(
             <TodoItem  
             todo={todo} 
             key={todo.id}
-            onRemove={value.actions.onRemove}
-            onToggle={value.actions.onToggle}/>
+            onRemove={actions.onRemove}
+            onToggle={actions.onToggle}/>
           ))}
         </div>
       )
