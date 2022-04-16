@@ -40,7 +40,7 @@ interface Props {
 }
 
 const TodoProvider = ({children}:Props) =>{
-//--------------------업데이트 함수 정의-------------------------------//
+//--------------------업데이트 함수 정의----------------------//
     const [todos, setTodos] = useState<Todo[]>([]);
     const [input, setInput] = useState('');
 

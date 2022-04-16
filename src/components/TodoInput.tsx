@@ -1,11 +1,12 @@
 import styles from '../Todo.module.css'
-import { TodoConsumer } from '../contexts/todo';
+import { useContext } from 'react';
+import TodoContext from '../contexts/todo';
 //props 타입스크립트 인터페이스 정의
 
 const TodoInput = () => {
+  const {state, actions } = useContext(TodoContext)
+
   return (
-    <TodoConsumer>
-      {({state, actions}) => (
         <div className={styles.input}>
           <form onSubmit={actions.onSubmit}>
             <input
@@ -16,8 +17,6 @@ const TodoInput = () => {
             <button type="submit">추가</button>
           </form>
         </div>
-      )}
-    </TodoConsumer>
   )
 }
 
